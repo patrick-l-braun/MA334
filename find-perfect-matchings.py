@@ -65,8 +65,7 @@ def perfect_matching2(G: nx.Graph):
     return matchings_including_edge + matchings_without_edge
 
 
-snarks = nx.read_graph6(
-    r'C:\Users\patri\OneDrive\Documents\LSE\Third_year\MA334\graph_examaple\22_snark.g6')
+snarks = nx.read_graph6("./graph_examaple/22_snark.g6")
 print("snarks")
 
 
