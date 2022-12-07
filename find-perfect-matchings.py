@@ -65,11 +65,13 @@ def perfect_matching2(G: nx.Graph):
     return matchings_including_edge + matchings_without_edge
 
 
-snarks = nx.read_graph6("./graph_examaple/22_snark.g6")
+snarks = nx.read_graph6("./graph_examaple/32_first.g6")
 print("snarks")
 
 
 for i, g in enumerate(snarks):
+    if i != 0:
+        break
     print(f'On interation {i}/{len(snarks)-1}')
     t0 = time.time()
     print(f'# of perfect matchings {len(perfect_matching(g))}')
@@ -79,3 +81,10 @@ for i, g in enumerate(snarks):
     t2 = time.time()
     print(f'Time for perfect_matching2 {t2-t1}')
     print()
+
+# check number of nodes searched
+# limit as n gets large
+
+
+# of perfect matchings 107
+# Time for perfect_matching 719.4474840164185
