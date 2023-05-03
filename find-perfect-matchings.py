@@ -1,23 +1,14 @@
 import networkx as nx
-import matplotlib.pyplot as plt
-import time
-
-
-# G = nx.Graph()
-# G.add_nodes_from([1, 2, 3, 4, 5, 6])
-# G.add_edges_from([(1, 2), (2, 3), (3, 4), (4, 5), (5, 6)])
-# print(G)
 
 
 def perfect_matching(G: nx.Graph):
-    # Base
-    # check for existence perfect matching
+    # Basecheck for existence perfect matching
     if len(G.edges()) < len(G.nodes())/2:
-        # if not nx.is_perfect_matching(G, nx.maximal_matching(G)):
         return []
-    elif len(G.nodes()) == 2 and len(G.edges()) > 0:
+    elif len(G.nodes()) == 2 and len(G.edges()) == 1:
         return [[list(G.edges)[0]]]
 
+    # fix an edge
     current_edge = list(G.edges)[0]
     node1 = current_edge[0]
     node2 = current_edge[1]
@@ -38,14 +29,15 @@ def perfect_matching(G: nx.Graph):
 
 
 def perfect_matching2(G: nx.Graph):
-    # Base
-    # check for existence perfect matching
+    """ identical function but uses max_weight_matching as base case"""
 
+    # Base case check for existence perfect matching
     if len(nx.max_weight_matching(G)) != len(list(G.nodes))/2:
         return []
     elif len(G.nodes()) == 2 and len(G.edges()) > 0:
         return [[list(G.edges)[0]]]
 
+    # fix an edge
     current_edge = list(G.edges)[0]
     node1 = current_edge[0]
     node2 = current_edge[1]
@@ -65,26 +57,14 @@ def perfect_matching2(G: nx.Graph):
     return matchings_including_edge + matchings_without_edge
 
 
-snarks = nx.read_graph6("./graph_examaple/32_first.g6")
-print("snarks")
+# Example Usage
+petersen = nx.read_graph6("./graph_examaple/10_snark.g6")
+matching_petersen = perfect_matching(petersen)
+print(
+    f'For petersen, number of matchings: {len(matching_petersen)} \nMatchings: {matching_petersen}')
 
 
-for i, g in enumerate(snarks):
-    if i != 0:
-        break
-    print(f'On interation {i}/{len(snarks)-1}')
-    t0 = time.time()
-    print(f'# of perfect matchings {len(perfect_matching(g))}')
-    t1 = time.time()
-    print(f'Time for perfect_matching {t1-t0}')
-    print(f'# of perfect matchings {len(perfect_matching2(g))}')
-    t2 = time.time()
-    print(f'Time for perfect_matching2 {t2-t1}')
-    print()
-
-# check number of nodes searched
-# limit as n gets large
-
-
-# of perfect matchings 107
-# Time for perfect_matching 719.4474840164185
+eighteen_node_snark = nx.read_graph6("./graph_examaple/20_snark.g6")[0]
+matchings_in_snark = perfect_matching(eighteen_node_snark)
+print(
+    f'\n\nFor 18 node snark example, number of matchings: {len(matchings_in_snark)}')
